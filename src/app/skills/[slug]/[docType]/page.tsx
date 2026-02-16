@@ -9,15 +9,16 @@ import {
 import { SkillDocView } from "@/components/SkillDocView";
 import { DOC_TYPE_LABELS, type DocType } from "@/lib/types";
 
-const VALID_DOC_TYPES: DocType[] = [
+/** Doc types served by this dynamic route (documentation has its own page). */
+type MarkdownDocType = "playbook" | "advanced-patterns" | "cloud-integration";
+
+const VALID_DOC_TYPES: MarkdownDocType[] = [
   "playbook",
   "advanced-patterns",
   "cloud-integration",
 ];
 
-const DOC_DESCRIPTIONS: Record<DocType, string> = {
-  skill: "",
-  documentation: "Full SKILL.md documentation (no code blocks).",
+const DOC_DESCRIPTIONS: Record<MarkdownDocType, string> = {
   playbook: "Complete implementation guide with code samples, patterns, and best practices.",
   "advanced-patterns": "Advanced topics and patterns for experienced users.",
   "cloud-integration": "Cloud execution and TestMu AI integration.",
@@ -44,7 +45,7 @@ export default async function SkillDocPage({
   params: Promise<{ slug: string; docType: string }>;
 }) {
   const { slug, docType } = await params;
-  const typedDoc = docType as DocType;
+  const typedDoc = docType as MarkdownDocType;
   if (!VALID_DOC_TYPES.includes(typedDoc)) notFound();
 
   const skill = await getSkillBySlug(slug);
