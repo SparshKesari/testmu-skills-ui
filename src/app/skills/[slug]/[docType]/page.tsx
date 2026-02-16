@@ -17,6 +17,7 @@ const VALID_DOC_TYPES: DocType[] = [
 
 const DOC_DESCRIPTIONS: Record<DocType, string> = {
   skill: "",
+  documentation: "Full SKILL.md documentation (no code blocks).",
   playbook: "Complete implementation guide with code samples, patterns, and best practices.",
   "advanced-patterns": "Advanced topics and patterns for experienced users.",
   "cloud-integration": "Cloud execution and TestMu AI integration.",
