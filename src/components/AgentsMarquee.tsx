@@ -36,7 +36,7 @@ function AgentLogo({ id, name, url }: { id: string; name: string; url: string })
         decoding="sync"
         width={100}
         height={100}
-        className="h-[72px] sm:h-[72px] lg:h-[88px] w-auto object-contain"
+        className="h-14 w-auto object-contain sm:h-[72px] lg:h-[88px]"
       />
     </a>
   );
@@ -47,11 +47,11 @@ export function AgentsMarquee() {
 
   return (
     <section className="w-full overflow-hidden py-0">
-      <p className="mb-4 text-sm font-mono font-medium uppercase tracking-normal text-foreground">
+      <p className="mb-4 text-sm font-mono font-medium uppercase tracking-normal text-muted-foreground">
         Available for these agents
       </p>
-      <div className="relative w-full overflow-hidden">
-        <div className="flex w-max flex-nowrap gap-4 animate-marquee">
+      <div className="relative w-full min-w-0 overflow-hidden">
+        <div className="flex w-max min-h-[3.5rem] flex-nowrap items-center gap-3 animate-marquee sm:gap-4">
           {duplicated.map((agent, i) => (
             <AgentLogo
               key={`${agent.id}-${i}`}

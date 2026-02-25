@@ -6,7 +6,7 @@ export const AGENT_PATHS: { id: string; name: string; path: string }[] = [
   { id: "codex", name: "Codex", path: ".codex/skills" },
 ];
 
-const REPO = "https://github.com/SparshKesari/testmu-skills.git";
+const REPO = "https://github.com/LambdaTest/agent-skills.git";
 
 export function getSingleSkillCommands(skillPath: string): Record<string, string> {
   const out: Record<string, string> = {};

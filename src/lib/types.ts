@@ -7,7 +7,8 @@ export interface Skill {
   name: string;
   path: string;
   description: string;
-  languages: string[];
+  /** May be omitted by the API for some skills */
+  languages?: string[];
   category: string;
   files: SkillFiles;
 }

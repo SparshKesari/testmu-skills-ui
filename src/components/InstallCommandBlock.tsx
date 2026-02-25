@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { AGENT_PATHS, getSingleSkillCommands, getAllSkillsCommands } from "@/lib/install";
+import { Button } from "@/components/ui/button";
+import { Copy, Check } from "lucide-react";
 
-const HERO_COMMAND = "git clone https://github.com/SparshKesari/testmu-skills.git";
+const HERO_COMMAND = "npx skills add https://github.com/LambdaTest/agent-skills.git"
 
 interface InstallCommandBlockProps {
   skillPath?: string;
@@ -27,33 +29,38 @@ export function InstallCommandBlock({ skillPath, variant = "single" }: InstallCo
 
   if (variant === "hero") {
     return (
-      <div className="w-full sm:max-w-[348px]">
+      <div className="install-command-boxes w-full min-w-0 max-w-full">
         <div
-          className="flex cursor-pointer items-center justify-between gap-4 rounded-md border-none px-4 py-3 font-mono text-sm text-foreground transition-all duration-300"
-          style={{ background: "color-mix(in srgb, var(--ds-gray-100) 80%, transparent)" }}
+          className="flex cursor-pointer items-center justify-between gap-4 rounded-none border border-input bg-muted/80 px-4 py-3 font-mono text-sm transition-colors min-w-0 overflow-hidden"
+          onClick={() => copy("hero", HERO_COMMAND)}
         >
-          <code className="min-w-0 flex-1 truncate text-left text-zinc-300">
+          <code className="min-w-0 flex-1 overflow-x-auto overflow-y-hidden text-left text-muted-foreground whitespace-nowrap py-0.5">
             $ {HERO_COMMAND}
           </code>
-          <button
+          <Button
             type="button"
-            onClick={() => copy("hero", HERO_COMMAND)}
-            className="shrink-0 rounded p-1.5 text-foreground/70 hover:bg-white/10 hover:text-foreground transition-colors"
+            variant="ghost"
+            size="icon"
+            className="shrink-0"
+            onClick={(e) => {
+              e.stopPropagation();
+              copy("hero", HERO_COMMAND);
+            }}
             aria-label="Copy command"
           >
             {copiedId === "hero" ? (
-              <span className="text-xs">Copied!</span>
+              <Check className="size-4" />
             ) : (
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+              <Copy className="size-4" />
             )}
-          </button>
+          </Button>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="w-full space-y-2 sm:max-w-[420px]">
+    <div className="install-command-boxes w-full space-y-2 [&>div]:rounded-none">
       {AGENT_PATHS.map((agent) => {
         const cmd = commands![agent.id];
         if (!cmd) return null;
@@ -61,31 +68,32 @@ export function InstallCommandBlock({ skillPath, variant = "single" }: InstallCo
         return (
           <div
             key={agent.id}
-            className="rounded-md border-none transition-all duration-300"
-            style={{ background: "color-mix(in srgb, var(--ds-gray-100) 80%, transparent)" }}
+            className="min-h-[3.25rem] rounded-none border border-input bg-muted/80 transition-colors"
           >
-            <div className="px-3 pt-2 pb-1 text-xs font-medium text-zinc-500">
+            <div className="px-3 pt-2 pb-1 text-xs font-medium text-muted-foreground">
               {agent.name}
             </div>
-            <div className="flex cursor-pointer items-center justify-between gap-4 px-4 pb-3 pt-0">
+            <div className="flex min-h-9 cursor-pointer items-center justify-between gap-4 px-4 pb-3 pt-0">
               <code className="min-w-0 flex-1 truncate text-left font-mono text-sm text-foreground">
                 {firstLine}
               </code>
-              <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                copy(agent.id, cmd);
-              }}
-              className="shrink-0 rounded p-1.5 text-foreground/70 hover:bg-white/10 hover:text-foreground transition-colors"
-              aria-label={`Copy command for ${agent.name}`}
-            >
-              {copiedId === agent.id ? (
-                <span className="text-xs">Copied!</span>
-              ) : (
-                <svg className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
-              )}
-            </button>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="shrink-0"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  copy(agent.id, cmd);
+                }}
+                aria-label={`Copy command for ${agent.name}`}
+              >
+                {copiedId === agent.id ? (
+                  <Check className="size-4" />
+                ) : (
+                  <Copy className="size-4" />
+                )}
+              </Button>
             </div>
           </div>
         );

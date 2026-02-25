@@ -1,0 +1,62 @@
+=== Skills with missing CORE tab content (Overview, Documentation, Playbook, Advanced patterns) ===
+
+None. All 45 skills have Overview, Documentation, Playbook, and Advanced patterns.
+
+=== Skills with empty or very short content (< 100 chars) ===
+
+None.
+
+=== All 45 skills — tab content status (for manual check) ===
+appium-automation-skill | ok (2669 chars) | ok (10726 chars) | ok (18557 chars) | ok (241 chars) | ok (3235 chars)
+behat-automation-skill | ok (1037 chars) | ok (4714 chars) | ok (20449 chars) | ok (2779 chars) | MISSING
+behave-automation-skill | ok (1030 chars) | ok (5074 chars) | ok (17527 chars) | ok (2841 chars) | MISSING
+capybara-automation-skill | ok (1048 chars) | ok (3626 chars) | ok (12430 chars) | ok (2492 chars) | ok (1488 chars)
+cicd-pipeline-skill | ok (4615 chars) | ok (2927 chars) | ok (14411 chars) | ok (249 chars) | MISSING
+codeception-testing-skill | ok (1001 chars) | ok (4300 chars) | ok (12521 chars) | ok (2416 chars) | ok (1076 chars)
+cucumber-automation-skill | ok (2258 chars) | ok (6490 chars) | ok (13598 chars) | ok (4137 chars) | MISSING
+cypress-automation-skill | ok (2552 chars) | ok (6929 chars) | ok (13196 chars) | ok (242 chars) | ok (1488 chars)
+detox-automation-skill | ok (1074 chars) | ok (7924 chars) | ok (13462 chars) | ok (3527 chars) | MISSING
+espresso-automation-skill | ok (1086 chars) | ok (8016 chars) | ok (12905 chars) | ok (1732 chars) | ok (1240 chars)
+flutter-testing-skill | ok (1113 chars) | ok (7729 chars) | ok (15373 chars) | ok (3384 chars) | MISSING
+gauge-automation-skill | ok (1041 chars) | ok (4524 chars) | ok (21711 chars) | ok (2325 chars) | MISSING
+geb-automation-skill | ok (939 chars) | ok (3982 chars) | ok (19836 chars) | ok (2443 chars) | ok (729 chars)
+hyperexecute-skill | ok (2240 chars) | ok (3325 chars) | ok (9841 chars) | ok (247 chars) | MISSING
+jasmine-testing-skill | ok (1005 chars) | ok (3553 chars) | ok (18525 chars) | ok (2996 chars) | MISSING
+jest-testing-skill | ok (2509 chars) | ok (4831 chars) | ok (13170 chars) | ok (7229 chars) | MISSING
+junit-testing-skill | ok (1060 chars) | ok (6382 chars) | ok (11947 chars) | ok (5912 chars) | MISSING
+karma-testing-skill | ok (1015 chars) | ok (3140 chars) | ok (22947 chars) | ok (3143 chars) | MISSING
+laravel-dusk-skill | ok (977 chars) | ok (4969 chars) | ok (25863 chars) | ok (2405 chars) | ok (698 chars)
+lettuce-testing-skill | ok (953 chars) | ok (3430 chars) | ok (7290 chars) | ok (2693 chars) | MISSING
+mocha-testing-skill | ok (959 chars) | ok (2993 chars) | ok (11902 chars) | ok (4976 chars) | MISSING
+mstest-testing-skill | ok (1093 chars) | ok (3570 chars) | ok (20375 chars) | ok (2323 chars) | MISSING
+nemojs-automation-skill | ok (954 chars) | ok (3503 chars) | ok (6931 chars) | ok (2251 chars) | ok (1169 chars)
+nightwatchjs-automation-skill | ok (1016 chars) | ok (3830 chars) | ok (9476 chars) | ok (3197 chars) | ok (1511 chars)
+nunit-testing-skill | ok (1033 chars) | ok (4264 chars) | ok (13916 chars) | ok (3710 chars) | MISSING
+phpunit-testing-skill | ok (1106 chars) | ok (4690 chars) | ok (27275 chars) | ok (4005 chars) | MISSING
+playwright-automation-skill | ok (3124 chars) | ok (11743 chars) | ok (16825 chars) | ok (245 chars) | ok (8364 chars)
+protractor-automation-skill | ok (992 chars) | ok (4313 chars) | ok (14356 chars) | ok (2202 chars) | ok (1285 chars)
+puppeteer-automation-skill | ok (1089 chars) | ok (4087 chars) | ok (14342 chars) | ok (2811 chars) | ok (1275 chars)
+pytest-testing-skill | ok (1089 chars) | ok (4887 chars) | ok (10887 chars) | ok (5903 chars) | MISSING
+robot-framework-skill | ok (1070 chars) | ok (4802 chars) | ok (25010 chars) | ok (4052 chars) | ok (829 chars)
+rspec-testing-skill | ok (1021 chars) | ok (3790 chars) | ok (14782 chars) | ok (4168 chars) | MISSING
+selenide-automation-skill | ok (963 chars) | ok (3011 chars) | ok (22155 chars) | ok (3170 chars) | ok (710 chars)
+selenium-automation-skill | ok (3140 chars) | ok (9092 chars) | ok (21252 chars) | ok (193 chars) | ok (4764 chars)
+serenity-bdd-skill | ok (987 chars) | ok (4088 chars) | ok (26392 chars) | ok (2446 chars) | MISSING
+smartui-testing-skill | ok (2368 chars) | ok (3799 chars) | ok (19608 chars) | ok (242 chars) | MISSING
+specflow-automation-skill | ok (951 chars) | ok (4558 chars) | ok (21208 chars) | ok (2612 chars) | MISSING
+testcafe-automation-skill | ok (1016 chars) | ok (2641 chars) | ok (11992 chars) | ok (2986 chars) | ok (898 chars)
+testng-testing-skill | ok (1115 chars) | ok (4455 chars) | ok (19274 chars) | ok (3296 chars) | MISSING
+testunit-ruby-skill | ok (901 chars) | ok (2730 chars) | ok (16624 chars) | ok (1961 chars) | MISSING
+unittest-testing-skill | ok (986 chars) | ok (3182 chars) | ok (20897 chars) | ok (4798 chars) | MISSING
+vitest-testing-skill | ok (1037 chars) | ok (3952 chars) | ok (11899 chars) | ok (4571 chars) | MISSING
+webdriverio-automation-skill | ok (1079 chars) | ok (4209 chars) | ok (16990 chars) | ok (870 chars) | ok (1260 chars)
+xcuitest-automation-skill | ok (1070 chars) | ok (6209 chars) | ok (15572 chars) | ok (3200 chars) | MISSING
+xunit-testing-skill | ok (1105 chars) | ok (3569 chars) | ok (14158 chars) | ok (3201 chars) | MISSING
+
+=== Summary ===
+Core tabs OK (Overview, Documentation, Playbook, Advanced patterns): 45
+Missing core tab file(s): 0
+Empty/short content (< 100 chars): 0
+Total skills: 45
+
+Note: Cloud integration is intentionally missing for unit-testing, BDD, and some other skills; only E2E/browser/mobile skills have it.

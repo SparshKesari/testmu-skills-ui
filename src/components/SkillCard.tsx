@@ -1,7 +1,9 @@
 import Link from "next/link";
 import type { Skill } from "@/lib/types";
-import { getSkillDisplayName, isHotSkill, toSkillSlug } from "@/lib/skills";
+import { getSkillDisplayName, isHotSkill, toSkillSlug } from "@/lib/skillsHelpers";
 import { SkillLogo } from "./SkillLogo";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 interface SkillCardProps {
   skill: Skill;
@@ -14,39 +16,35 @@ function truncate(str: string, max: number): string {
 
 export function SkillCard({ skill }: SkillCardProps) {
   return (
-    <Link
-      href={`/skills/${toSkillSlug(skill.path)}`}
-      className="flex gap-4 rounded-xl border border-white/10 bg-white/5 p-5 transition hover:border-white/20 hover:bg-white/[0.07]"
-    >
-      <SkillLogo skillPath={skill.path} />
-      <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-center gap-2">
-          <h3 className="font-semibold text-white">
-            {getSkillDisplayName(skill.path)}
-          </h3>
-          {isHotSkill(skill.path) && (
-            <span className="rounded bg-amber-500/20 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide text-amber-400 ring-1 ring-amber-500/40">
-              Hot
-            </span>
-          )}
-        </div>
-        <p className="mt-2 text-sm text-zinc-400 line-clamp-2">
-        {truncate(skill.description, 180)}
-      </p>
-        <div className="mt-3 flex flex-wrap gap-2">
-          <span className="rounded bg-white/10 px-2 py-0.5 text-xs font-medium text-zinc-300">
-            {skill.category}
-          </span>
-          {skill.languages?.slice(0, 4).map((lang) => (
-            <span
-              key={lang}
-              className="rounded bg-white/10 px-2 py-0.5 text-xs text-zinc-500"
-            >
-              {lang}
-            </span>
-          ))}
-        </div>
-      </div>
+    <Link href={`/skills/${toSkillSlug(skill.path)}`} className="block h-full">
+      <Card className="h-full transition-colors hover:bg-accent/50 hover:border-border">
+        <CardContent className="flex h-full gap-4 p-5">
+          <SkillLogo skillPath={skill.path} />
+          <div className="min-w-0 flex-1 flex flex-col min-h-0 space-y-2">
+            <div className="flex flex-wrap items-center gap-2 shrink-0">
+              <h3 className="font-semibold leading-none">
+                {getSkillDisplayName(skill.path)}
+              </h3>
+              {isHotSkill(skill.path) && (
+                <Badge variant="secondary" className="bg-amber-500/20 text-amber-400 ring-1 ring-amber-500/40">
+                  Hot
+                </Badge>
+              )}
+            </div>
+            <p className="text-sm text-muted-foreground line-clamp-2 shrink-0">
+              {truncate(skill.description, 180)}
+            </p>
+            <div className="flex flex-wrap gap-2 mt-auto">
+              <Badge variant="secondary">{skill.category}</Badge>
+              {skill.languages?.slice(0, 4).map((lang) => (
+                <Badge key={lang} variant="outline">
+                  {lang}
+                </Badge>
+              ))}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </Link>
   );
 }

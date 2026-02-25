@@ -3,14 +3,16 @@ import { notFound } from "next/navigation";
 import {
   getSkillBySlug,
   getSkillReadmeSections,
+  getSkills,
+  stripOverviewOneLiner,
+  stripOverviewUrlBlock,
   toSkillSlug,
 } from "@/lib/skills";
 import { SkillOverview } from "@/components/SkillOverview";
-import { SkillDocView } from "@/components/SkillDocView";
-import { SkillReadmeMarkdown } from "@/components/SkillReadmeView";
+import { SkillOverviewDocView } from "@/components/SkillOverviewDocView";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 export async function generateStaticParams() {
-  const { getSkills } = await import("@/lib/skills");
   const skills = await getSkills();
   return skills.map((s) => ({ slug: toSkillSlug(s.path) }));
 }
@@ -28,74 +30,59 @@ export default async function SkillPage({
   if (!readme) notFound();
 
   return (
-    <div className="space-y-10">
-      {/* Overview — what it does, when to use, triggers */}
-      <section className="rounded-lg border border-white/10 bg-white/5 p-6">
-        <h2 className="mb-4 text-lg font-semibold text-white border-b border-white/10 pb-2">
-          Overview
-        </h2>
-        <SkillOverview skill={skill} />
-      </section>
-
-      {/* How to use — intro/first part of SKILL.md */}
-      {readme.howToUse && (
-        <SkillReadmeMarkdown title="How to use" markdown={readme.howToUse} />
-      )}
-
-      {/* Samples — first sections from playbook */}
-      {readme.samples.length > 0 && (
-        <section className="space-y-6">
-          <h2 className="text-lg font-semibold text-white border-b border-white/10 pb-2">
-            Samples
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <h2 className="text-lg font-semibold border-b border-border pb-2">
+            Overview
           </h2>
-          <p className="text-sm text-zinc-500">
-            Quick implementation samples from the playbook. See the full Playbook tab for the complete guide.
-          </p>
-          <div className="space-y-8">
-            {readme.samples.map((s) => (
-              <div key={s.title} className="space-y-2">
-                <h3 className="text-base font-medium text-white">
-                  {s.title}
-                </h3>
-                <SkillDocView markdown={s.content} />
-              </div>
-            ))}
-          </div>
-          {readme.hasPlaybook && (
-            <Link
-              href={`/skills/${slug}/playbook`}
-              className="inline-block text-sm font-medium text-amber-400 hover:text-amber-300"
-            >
-              View full Playbook →
-            </Link>
+        </CardHeader>
+        <CardContent>
+          {readme.overviewMarkdown ? (
+            <SkillOverviewDocView
+              markdown={stripOverviewOneLiner(
+                stripOverviewUrlBlock(
+                  readme.overviewMarkdown,
+                  readme.overviewUrl
+                )
+              )}
+            />
+          ) : (
+            <SkillOverview skill={skill} />
           )}
-        </section>
-      )}
+        </CardContent>
+      </Card>
 
-      {/* Advanced samples — from advanced-patterns.md */}
-      {readme.advancedSamples && (
-        <section className="space-y-4">
-          <h2 className="text-lg font-semibold text-white border-b border-white/10 pb-2">
-            Advanced samples
-          </h2>
-          <SkillDocView markdown={readme.advancedSamples} />
-          {readme.hasAdvanced && (
-            <Link
-              href={`/skills/${slug}/advanced-patterns`}
-              className="inline-block text-sm font-medium text-amber-400 hover:text-amber-300"
-            >
-              View full Advanced patterns →
-            </Link>
-          )}
-        </section>
-      )}
-
-      <p className="text-sm text-zinc-500">
-        For full reference without code, see the{" "}
-        <Link href={`/skills/${slug}/documentation`} className="text-amber-400 hover:text-amber-300">
+      <p className="text-sm text-muted-foreground">
+        For full reference, implementation samples, and cloud setup, see the{" "}
+        <Link href={`/skills/${slug}/documentation`} className="text-primary underline-offset-4 hover:underline">
           Documentation
-        </Link>{" "}
-        tab.
+        </Link>
+        {readme.hasPlaybook && (
+          <>
+            ,{" "}
+            <Link href={`/skills/${slug}/playbook`} className="text-primary underline-offset-4 hover:underline">
+              Playbook
+            </Link>
+          </>
+        )}
+        {readme.hasAdvanced && (
+          <>
+            ,{" "}
+            <Link href={`/skills/${slug}/advanced-patterns`} className="text-primary underline-offset-4 hover:underline">
+              Advanced patterns
+            </Link>
+          </>
+        )}
+        {readme.hasCloud && (
+          <>
+            , and{" "}
+            <Link href={`/skills/${slug}/cloud-integration`} className="text-primary underline-offset-4 hover:underline">
+              Cloud integration
+            </Link>
+          </>
+        )}
+        {" "}tabs.
       </p>
     </div>
   );

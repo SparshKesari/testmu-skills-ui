@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { getSkillBySlug, getSkillMarkdown, getSkills, toSkillSlug } from "@/lib/skills";
 import { SkillDocView } from "@/components/SkillDocView";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { stripCodeBlocks } from "@/lib/parseSkillMarkdown";
 
 export async function generateStaticParams() {
@@ -20,9 +21,13 @@ export default async function SkillDocumentationPage({
   const markdown = await getSkillMarkdown(slug, "skill");
   if (markdown === null) {
     return (
-      <p className="text-zinc-500 dark:text-zinc-400">
-        Documentation could not be loaded.
-      </p>
+      <Card>
+        <CardContent className="pt-6">
+          <p className="text-muted-foreground">
+            Documentation could not be loaded.
+          </p>
+        </CardContent>
+      </Card>
     );
   }
 
@@ -30,15 +35,19 @@ export default async function SkillDocumentationPage({
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-lg font-semibold text-white border-b border-white/10 pb-2">
-          Documentation
-        </h2>
-        <p className="mt-2 text-sm text-zinc-500">
-          Full skill reference without code blocks. For implementation samples and code, see the Playbook and Advanced patterns tabs.
-        </p>
-      </div>
-      <SkillDocView markdown={markdownNoCode} />
+      <Card>
+        <CardHeader>
+          <h2 className="text-lg font-semibold border-b border-border pb-2">
+            Documentation
+          </h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Full skill reference without code blocks. For implementation samples and code, see the Playbook and Advanced patterns tabs.
+          </p>
+        </CardHeader>
+        <CardContent>
+          <SkillDocView markdown={markdownNoCode} />
+        </CardContent>
+      </Card>
     </div>
   );
 }

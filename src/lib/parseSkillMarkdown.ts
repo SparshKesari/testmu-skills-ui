@@ -15,7 +15,7 @@ export function parseMarkdownSections(md: string): MarkdownSection[] {
   const sections: MarkdownSection[] = [];
   const lines = md.split(/\r?\n/);
   let current: { title: string; level: number; content: string[] } | null = null;
-  let intro: string[] = [];
+  const intro: string[] = [];
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];

@@ -3,6 +3,16 @@
 import { useMemo, useState } from "react";
 import { SkillCard } from "./SkillCard";
 import type { Skill } from "@/lib/types";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const ALL_OPTION_VALUE = "__all__";
 
 interface SkillsListProps {
   skills: Skill[];
@@ -30,42 +40,50 @@ export function SkillsList({ skills, categories, languages }: SkillsListProps) {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <input
+      <div className="hidden flex-col gap-4 sm:flex sm:flex-row sm:items-center sm:justify-between">
+        <Input
           type="search"
           placeholder="Search skills..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full max-w-sm rounded-lg border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20"
+          className="w-full max-w-sm"
         />
-        <div className="flex flex-wrap gap-2">
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-zinc-300 focus:border-white/20 focus:outline-none"
+        <div className="flex min-w-0 flex-wrap gap-2">
+          <Select
+            value={category || ALL_OPTION_VALUE}
+            onValueChange={(v) => setCategory(v === ALL_OPTION_VALUE ? "" : v)}
           >
-            <option value="">All categories</option>
-            {categories.map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
-          </select>
-          <select
-            value={language}
-            onChange={(e) => setLanguage(e.target.value)}
-            className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-zinc-300 focus:border-white/20 focus:outline-none"
+            <SelectTrigger className="w-full min-w-0 sm:w-[180px]">
+              <SelectValue placeholder="All categories" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value={ALL_OPTION_VALUE}>All categories</SelectItem>
+              {categories.map((c) => (
+                <SelectItem key={c} value={c}>
+                  {c}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Select
+            value={language || ALL_OPTION_VALUE}
+            onValueChange={(v) => setLanguage(v === ALL_OPTION_VALUE ? "" : v)}
           >
-            <option value="">All languages</option>
-            {languages.map((l) => (
-              <option key={l} value={l}>
-                {l}
-              </option>
-            ))}
-          </select>
+            <SelectTrigger className="w-full min-w-0 sm:w-[180px]">
+              <SelectValue placeholder="All languages" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value={ALL_OPTION_VALUE}>All languages</SelectItem>
+              {languages.map((l) => (
+                <SelectItem key={l} value={l}>
+                  {l}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
-      <p className="text-sm text-zinc-500">
+      <p className="text-sm text-muted-foreground">
         {filtered.length} skill{filtered.length !== 1 ? "s" : ""}
       </p>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

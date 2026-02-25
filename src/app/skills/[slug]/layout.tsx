@@ -5,12 +5,15 @@ import {
   getAvailableDocTypes,
   getGitHubSkillUrl,
   getSkillDisplayName,
+  getSkillInstallCommand,
   isHotSkill,
 } from "@/lib/skills";
-import { InstallCommandBlock } from "@/components/InstallCommandBlock";
 import { SkillLogo } from "@/components/SkillLogo";
 import { SkillDocNav } from "@/components/SkillDocNav";
+import { CopyableUrlBlock } from "@/components/CopyableUrlBlock";
 import { type DocType } from "@/lib/types";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 export default async function SkillLayout({
   children,
@@ -23,67 +26,52 @@ export default async function SkillLayout({
   const skill = await getSkillBySlug(slug);
   if (!skill) notFound();
 
-  const baseDocTypes = getAvailableDocTypes(skill);
+  const baseDocTypes = await getAvailableDocTypes(skill);
   const docTypes: DocType[] = [
     "skill",
     "documentation",
     ...baseDocTypes.filter((t) => t !== "skill"),
   ];
   const githubUrl = getGitHubSkillUrl(skill.path);
+  const installCommand = getSkillInstallCommand(skill.path);
   const title = getSkillDisplayName(skill.path);
 
   return (
     <div className="space-y-6">
-      <div className="border-b border-white/10 pb-6">
-        <Link
-          href="/"
-          className="text-sm text-zinc-500 hover:text-white"
-        >
-          ← All skills
-        </Link>
+      <div className="border-b border-border pb-6">
+        <Button variant="link" size="sm" className="text-muted-foreground p-0 h-auto" asChild>
+          <Link href="/">← All skills</Link>
+        </Button>
         <div className="mt-2 flex flex-wrap items-center gap-3">
           <SkillLogo skillPath={skill.path} />
-          <div className="min-w-0 flex-1">
-            <h1 className="text-2xl font-bold text-white">
-              {title}
-            </h1>
-          {isHotSkill(skill.path) && (
-            <span className="rounded bg-amber-500/20 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-amber-400 ring-1 ring-amber-500/40">
-              Hot
-            </span>
-          )}
+          <div className="min-w-0 flex-1 flex flex-wrap items-center gap-2">
+            <h1 className="text-2xl font-bold">{title}</h1>
+            {isHotSkill(skill.path) && (
+              <Badge variant="secondary" className="bg-amber-500/20 text-amber-400 ring-1 ring-amber-500/40">
+                Hot
+              </Badge>
+            )}
           </div>
         </div>
         <div className="mt-2 flex flex-wrap gap-2">
-          <span className="rounded bg-white/10 px-2 py-0.5 text-xs font-medium text-zinc-300">
-            {skill.category}
-          </span>
+          <Badge variant="secondary">{skill.category}</Badge>
           {skill.languages?.map((lang) => (
-            <span
-              key={lang}
-              className="rounded bg-white/10 px-2 py-0.5 text-xs text-zinc-500"
-            >
+            <Badge key={lang} variant="outline">
               {lang}
-            </span>
+            </Badge>
           ))}
         </div>
-        <div className="mt-4">
-          <h2 className="mb-2 w-full text-sm font-mono font-medium uppercase tracking-normal text-foreground">
-            Install this skill
-          </h2>
-          <p className="mb-3.5 text-xs text-zinc-500">
-            Copy the command for your agent and run it in your project.
-          </p>
-          <InstallCommandBlock skillPath={skill.path} />
-        </div>
-        <a
-          href={githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-3 inline-block text-sm text-zinc-400 hover:text-white"
-        >
-          View on GitHub →
-        </a>
+        <Button variant="link" size="sm" className="text-muted-foreground p-0 h-auto mt-4" asChild>
+          <a href={githubUrl} target="_blank" rel="noopener noreferrer">
+            View on GitHub →
+          </a>
+        </Button>
+      </div>
+      <div className="pb-4">
+        <CopyableUrlBlock
+          url={installCommand}
+          label="Copy and Paste in your Terminal"
+        />
       </div>
       <SkillDocNav slug={slug} docTypes={docTypes} />
       {children}

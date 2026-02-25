@@ -7,7 +7,10 @@ import {
   toSkillSlug,
 } from "@/lib/skills";
 import { SkillDocView } from "@/components/SkillDocView";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { DOC_TYPE_LABELS, type DocType } from "@/lib/types";
+
+const SHORT_CONTENT_THRESHOLD = 500;
 
 /** Doc types served by this dynamic route (documentation has its own page). */
 type MarkdownDocType = "playbook" | "advanced-patterns" | "cloud-integration";
@@ -24,14 +27,18 @@ const DOC_DESCRIPTIONS: Record<MarkdownDocType, string> = {
   "cloud-integration": "Cloud execution and TestMu AI integration.",
 };
 
+function isMarkdownDocType(t: DocType): t is MarkdownDocType {
+  return (VALID_DOC_TYPES as readonly string[]).includes(t);
+}
+
 export async function generateStaticParams() {
   const skills = await getSkills();
   const params: { slug: string; docType: string }[] = [];
   for (const skill of skills) {
     const slug = toSkillSlug(skill.path);
-    const types = getAvailableDocTypes(skill);
+    const types = await getAvailableDocTypes(skill);
     for (const docType of types) {
-      if (VALID_DOC_TYPES.includes(docType as DocType)) {
+      if (isMarkdownDocType(docType)) {
         params.push({ slug, docType });
       }
     }
@@ -51,34 +58,48 @@ export default async function SkillDocPage({
   const skill = await getSkillBySlug(slug);
   if (!skill) notFound();
 
-  const availableTypes = getAvailableDocTypes(skill);
+  const availableTypes = await getAvailableDocTypes(skill);
   if (!availableTypes.includes(typedDoc)) notFound();
 
   const markdown = await getSkillMarkdown(slug, typedDoc);
   if (markdown === null) {
     return (
-      <p className="text-zinc-500 dark:text-zinc-400">
-        This document could not be loaded.
-      </p>
+      <Card>
+        <CardContent className="pt-6">
+          <p className="text-muted-foreground">
+            This document could not be loaded.
+          </p>
+        </CardContent>
+      </Card>
     );
   }
 
   const title = DOC_TYPE_LABELS[typedDoc];
   const description = DOC_DESCRIPTIONS[typedDoc];
+  const isShort = markdown.trim().length < SHORT_CONTENT_THRESHOLD;
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-lg font-semibold text-white border-b border-white/10 pb-2">
-          {title}
-        </h2>
-        {description && (
-          <p className="mt-2 text-sm text-zinc-500">
-            {description}
-          </p>
-        )}
-      </div>
-      <SkillDocView markdown={markdown} />
+      <Card>
+        <CardHeader>
+          <h2 className="text-lg font-semibold border-b border-border pb-2">
+            {title}
+          </h2>
+          {description && (
+            <p className="mt-2 text-sm text-muted-foreground">
+              {description}
+            </p>
+          )}
+        </CardHeader>
+        <CardContent>
+          <SkillDocView markdown={markdown} />
+          {isShort && (
+            <p className="mt-6 text-sm text-muted-foreground border-t border-border pt-4">
+              This section is being expanded. For more patterns and examples, see the Playbook and Documentation tabs.
+            </p>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }

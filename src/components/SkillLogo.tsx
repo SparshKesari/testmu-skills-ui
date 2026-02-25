@@ -31,7 +31,7 @@ function FallbackIcon({ className }: { className?: string }) {
 
 export function SkillLogo({ skillPath, className = "" }: SkillLogoProps) {
   const iconUrl = getSkillIconUrl(skillPath);
-  const boxClass = `flex shrink-0 items-center justify-center rounded-lg bg-white/5 text-white ${className}`.trim();
+  const boxClass = `flex shrink-0 items-center justify-center rounded-none bg-white/5 text-white ${className}`.trim();
 
   if (iconUrl) {
     return (
