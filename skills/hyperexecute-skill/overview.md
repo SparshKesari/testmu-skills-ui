@@ -37,9 +37,3 @@ Reference when orchestrating test execution at scale on cloud infrastructure, co
 
 
 The agent loads from 1 on-demand reference files (`playbook.md`) containing detailed implementation guides, cloud integration patterns, debugging tables, and language-specific best practices.
-
----
-
-## 🔄 Framework Migration (1)
-
----

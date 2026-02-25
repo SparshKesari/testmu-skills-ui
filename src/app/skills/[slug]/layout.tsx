@@ -39,6 +39,19 @@ export default async function SkillLayout({
   return (
     <div className="space-y-6">
       <div className="border-b border-border pb-6">
+        <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground mb-2">
+          <ol className="flex flex-wrap items-center gap-1.5">
+            <li>
+              <Link href="/" className="hover:text-foreground transition-colors">
+                Home
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li className="text-foreground font-medium truncate" aria-current="page">
+              {title}
+            </li>
+          </ol>
+        </nav>
         <Button variant="link" size="sm" className="text-muted-foreground p-0 h-auto" asChild>
           <Link href="/">← All skills</Link>
         </Button>
@@ -61,11 +74,11 @@ export default async function SkillLayout({
             </Badge>
           ))}
         </div>
-        <Button variant="link" size="sm" className="text-muted-foreground p-0 h-auto mt-4" asChild>
+        {/* <Button variant="link" size="sm" className="text-muted-foreground p-0 h-auto mt-4" asChild>
           <a href={githubUrl} target="_blank" rel="noopener noreferrer">
             View on GitHub →
           </a>
-        </Button>
+        </Button> */}
       </div>
       <div className="pb-4">
         <CopyableUrlBlock

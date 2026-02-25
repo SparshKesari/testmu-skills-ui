@@ -10,9 +10,3 @@ Reference only when maintaining existing Lettuce test suites or planning migrati
 
 
 The agent loads from 2 on-demand reference files (`advanced-patterns.md`, `playbook.md`) containing detailed implementation guides, cloud integration patterns, debugging tables, and language-specific best practices.
-
----
-
-## 👁️ Visual Testing (1)
-
----

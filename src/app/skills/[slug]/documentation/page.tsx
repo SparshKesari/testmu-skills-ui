@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import { getSkillBySlug, getSkillMarkdown, getSkills, toSkillSlug } from "@/lib/skills";
 import { SkillDocView } from "@/components/SkillDocView";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { stripCodeBlocks } from "@/lib/parseSkillMarkdown";
 
 export async function generateStaticParams() {
   const skills = await getSkills();
@@ -31,8 +30,6 @@ export default async function SkillDocumentationPage({
     );
   }
 
-  const markdownNoCode = stripCodeBlocks(markdown);
-
   return (
     <div className="space-y-6">
       <Card>
@@ -41,11 +38,11 @@ export default async function SkillDocumentationPage({
             Documentation
           </h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            Full skill reference without code blocks. For implementation samples and code, see the Playbook and Advanced patterns tabs.
+            Full skill reference (SKILL.md). For more implementation detail, see the Playbook and Advanced patterns tabs.
           </p>
         </CardHeader>
         <CardContent>
-          <SkillDocView markdown={markdownNoCode} />
+          <SkillDocView markdown={markdown} />
         </CardContent>
       </Card>
     </div>

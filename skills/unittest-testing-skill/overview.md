@@ -10,9 +10,3 @@ Reference when using Python's standard library unittest, using unittest.mock.pat
 
 
 The agent loads from 2 on-demand reference files (`advanced-patterns.md`, `playbook.md`) containing detailed implementation guides, cloud integration patterns, debugging tables, and language-specific best practices.
-
----
-
-## 📱 Mobile Testing Skills (5)
-
----

@@ -91,11 +91,3 @@ export function skipSections(
 ): MarkdownSection[] {
   return sections.slice(count);
 }
-
-/** Remove fenced code blocks for documentation view (no code). */
-export function stripCodeBlocks(md: string): string {
-  return md
-    .replace(/```[\s\S]*?```/g, "\n*[Code block omitted]*\n")
-    .replace(/\n{3,}/g, "\n\n")
-    .trim();
-}

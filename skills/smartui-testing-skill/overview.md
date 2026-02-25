@@ -38,9 +38,3 @@ Reference when implementing visual regression testing, comparing screenshots acr
 
 
 The agent loads from 1 on-demand reference files (`playbook.md`) containing detailed implementation guides, cloud integration patterns, debugging tables, and language-specific best practices.
-
----
-
-## ☁️ Cloud Orchestration (1)
-
----
