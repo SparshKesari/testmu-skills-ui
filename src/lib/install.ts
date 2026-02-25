@@ -6,12 +6,16 @@ export const AGENT_PATHS: { id: string; name: string; path: string }[] = [
   { id: "codex", name: "Codex", path: ".codex/skills" },
 ];
 
+import { getLambdaTestSkillName } from "./skillsMapping";
+
 const REPO = "https://github.com/LambdaTest/agent-skills.git";
+const CLONE_FOLDER = "agent-skills";
 
 export function getSingleSkillCommands(skillPath: string): Record<string, string> {
+  const lambdaTestName = getLambdaTestSkillName(skillPath);
   const out: Record<string, string> = {};
   for (const a of AGENT_PATHS) {
-    out[a.id] = `git clone ${REPO}\ncp -r testmu-skills/${skillPath} ${a.path}/`;
+    out[a.id] = `git clone ${REPO}\ncp -r ${CLONE_FOLDER}/${lambdaTestName} ${a.path}/`;
   }
   return out;
 }
@@ -19,7 +23,7 @@ export function getSingleSkillCommands(skillPath: string): Record<string, string
 export function getAllSkillsCommands(): Record<string, string> {
   const out: Record<string, string> = {};
   for (const a of AGENT_PATHS) {
-    out[a.id] = `git clone ${REPO} ${a.path}/testmu`;
+    out[a.id] = `git clone ${REPO} ${a.path}/${CLONE_FOLDER}`;
   }
   return out;
 }

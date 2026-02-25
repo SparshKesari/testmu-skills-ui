@@ -2,7 +2,7 @@
   "version": "1.0.0",
   "name": "Agent Skills for All",
   "description": "Agent Skills for All by TestMu AI — Production-grade skills for test automation — 45 frameworks, 15+ languages, cloud and local execution",
-  "repository": "https://github.com/nicmindrally/testmu-skills",
+  "repository": "https://github.com/LambdaTest/agent-skills",
   "total_skills": 45,
   "categories": [
     "bdd-testing",

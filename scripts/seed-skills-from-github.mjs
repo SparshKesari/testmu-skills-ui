@@ -13,7 +13,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(__dirname, "..");
 const SKILLS_DIR = path.join(PROJECT_ROOT, "skills");
 
-const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/SparshKesari/testmu-skills/main";
+// Canonical repo: LambdaTest/agent-skills (folder names e.g. selenium-skill). Running this overwrites skills/ and index.json.
+const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/LambdaTest/agent-skills/main";
 const INDEX_URL = `${GITHUB_RAW_BASE}/skills_index.json`;
 
 function getRefDocType(refPath) {

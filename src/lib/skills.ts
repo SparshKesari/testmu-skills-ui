@@ -71,70 +71,21 @@ export async function getAvailableDocTypes(
   return ["skill", ...optional];
 }
 
+import { getLambdaTestSkillName } from "./skillsMapping";
+
 const GITHUB_REPO = "https://github.com/LambdaTest/agent-skills.git";
 const GITHUB_REPO_BROWSE = "https://github.com/LambdaTest/agent-skills";
 
-/** Map our skill path (index) to LambdaTest/agent-skills folder name for npx and GitHub links. */
-const OUR_PATH_TO_LAMBDATEST_SKILL: Record<string, string> = {
-  "appium-automation-skill": "appium-skill",
-  "behat-automation-skill": "behat-skill",
-  "behave-automation-skill": "behave-skill",
-  "capybara-automation-skill": "capybara-skill",
-  "cicd-pipeline-skill": "cicd-pipeline-skill",
-  "codeception-testing-skill": "codeception-skill",
-  "cucumber-automation-skill": "cucumber-skill",
-  "cypress-automation-skill": "cypress-skill",
-  "detox-automation-skill": "detox-skill",
-  "espresso-automation-skill": "espresso-skill",
-  "flutter-testing-skill": "flutter-testing-skill",
-  "gauge-automation-skill": "gauge-skill",
-  "geb-automation-skill": "geb-skill",
-  "hyperexecute-skill": "hyperexecute-skill",
-  "jasmine-testing-skill": "jasmine-skill",
-  "jest-testing-skill": "jest-skill",
-  "junit-testing-skill": "junit-5-skill",
-  "karma-testing-skill": "karma-skill",
-  "laravel-dusk-skill": "laravel-dusk-skill",
-  "lettuce-testing-skill": "lettuce-skill",
-  "mocha-testing-skill": "mocha-skill",
-  "mstest-testing-skill": "mstest-skill",
-  "nemojs-automation-skill": "nemojs-skill",
-  "nightwatchjs-automation-skill": "nightwatchjs-skill",
-  "nunit-testing-skill": "nunit-skill",
-  "phpunit-testing-skill": "phpunit-skill",
-  "playwright-automation-skill": "playwright-skill",
-  "protractor-automation-skill": "protractor-skill",
-  "puppeteer-automation-skill": "puppeteer-skill",
-  "pytest-testing-skill": "pytest-skill",
-  "robot-framework-skill": "robot-framework-skill",
-  "rspec-testing-skill": "rspec-skill",
-  "selenide-automation-skill": "selenide-skill",
-  "selenium-automation-skill": "selenium-skill",
-  "serenity-bdd-skill": "serenity-bdd-skill",
-  "smartui-testing-skill": "smartui-skill",
-  "specflow-automation-skill": "specflow-skill",
-  "testcafe-automation-skill": "testcafe-skill",
-  "testng-testing-skill": "testng-skill",
-  "testunit-ruby-skill": "testunit-skill",
-  "unittest-testing-skill": "unittest-skill",
-  "vitest-testing-skill": "vitest-skill",
-  "webdriverio-automation-skill": "webdriverio-skill",
-  "xcuitest-automation-skill": "xcuitest-skill",
-  "xunit-testing-skill": "xunit-skill",
-};
-
-function toLambdaTestSkillName(ourPath: string): string {
-  return OUR_PATH_TO_LAMBDATEST_SKILL[ourPath] ?? ourPath;
-}
+export { getLambdaTestSkillName } from "./skillsMapping";
 
 export function getGitHubSkillUrl(path: string): string {
-  const skillName = toLambdaTestSkillName(path);
+  const skillName = getLambdaTestSkillName(path);
   return `${GITHUB_REPO_BROWSE}/tree/main/${skillName}`;
 }
 
 /** npx install command for a skill (Copy and Paste in your Terminal). Uses LambdaTest/agent-skills naming. */
 export function getSkillInstallCommand(skillPath: string): string {
-  const skillName = toLambdaTestSkillName(skillPath);
+  const skillName = getLambdaTestSkillName(skillPath);
   return `npx skills add ${GITHUB_REPO} --skill ${skillName}`;
 }
 
