@@ -29,7 +29,7 @@ export function SkillDocNav({ slug, docTypes }: SkillDocNavProps) {
 
   return (
     <Tabs value={tabValue} className="w-full">
-      <TabsList variant="line" className="w-full justify-start border-b border-border bg-transparent p-0 h-auto rounded-none">
+      <TabsList variant="pills" className="w-full flex-wrap justify-start gap-2 bg-transparent">
         {docTypes.map((t) => {
           const href = t === "skill" ? base : `${base}/${t}`;
           return (

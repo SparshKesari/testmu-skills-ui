@@ -1,17 +1,15 @@
 /**
- * Logo/icon for each skill card. Uses Simple Icons (jsDelivr) where available,
- * otherwise a consistent fallback icon. All logos rendered in same size/container.
+ * Logo/icon for each skill card. Icons are stored in public/skill-icons/ (downloaded from Simple Icons).
+ * Skills not in the map use the fallback icon.
  */
-const SIMPLE_ICONS_CDN = "https://cdn.jsdelivr.net/npm/simple-icons@11/icons";
-
-/** skill path → Simple Icons slug. Only slugs known to exist in simple-icons. */
+/** skill path → icon filename (without path). File lives at public/skill-icons/{slug}.svg */
 const SKILL_ICON_SLUGS: Record<string, string> = {
   "selenium-automation-skill": "selenium",
   "playwright-automation-skill": "playwright",
   "cypress-automation-skill": "cypress",
   "jest-testing-skill": "jest",
   "pytest-testing-skill": "python",
-  "junit-testing-skill": "java",
+  "junit-testing-skill": "junit",
   "testng-testing-skill": "java",
   "appium-automation-skill": "appium",
   "puppeteer-automation-skill": "puppeteer",
@@ -20,43 +18,46 @@ const SKILL_ICON_SLUGS: Record<string, string> = {
   "cucumber-automation-skill": "cucumber",
   "espresso-automation-skill": "android",
   "flutter-testing-skill": "flutter",
-  "xcuitest-automation-skill": "apple",
+  "xcuitest-automation-skill": "xcuitest",
   "detox-automation-skill": "react",
-  "xunit-testing-skill": "dotnet",
+  "xunit-testing-skill": "xunit",
   "rspec-testing-skill": "ruby",
   "nunit-testing-skill": "dotnet",
-  "mstest-testing-skill": "microsoft",
+  "mstest-testing-skill": "dotnet",
   "jasmine-testing-skill": "jasmine",
   "phpunit-testing-skill": "php",
   "robot-framework-skill": "robotframework",
-  "behat-automation-skill": "php",
-  "behave-automation-skill": "python",
-  "capybara-automation-skill": "ruby",
-  "codeception-testing-skill": "php",
-  "geb-automation-skill": "groovy",
+  "behat-automation-skill": "behat",
+  "behave-automation-skill": "behave",
+  "capybara-automation-skill": "capybara",
+  "codeception-testing-skill": "codeception",
+  "geb-automation-skill": "geb",
   "laravel-dusk-skill": "laravel",
   "lettuce-testing-skill": "python",
   "nemojs-automation-skill": "nodedotjs",
   "protractor-automation-skill": "angular",
-  "selenide-automation-skill": "java",
+  "selenide-automation-skill": "selenide",
   "serenity-bdd-skill": "java",
   "smartui-testing-skill": "selenium",
   "specflow-automation-skill": "dotnet",
   "testunit-ruby-skill": "ruby",
   "unittest-testing-skill": "python",
-  "hyperexecute-skill": "docker",
+  "hyperexecute-skill": "hyperexecute",
   "cicd-pipeline-skill": "github",
   "test-framework-migration-skill": "git",
   "webdriverio-automation-skill": "webdriverio",
-  "nightwatchjs-automation-skill": "nightwatch",
   "testcafe-automation-skill": "testcafe",
+  "nightwatchjs-automation-skill": "nightwatch",
   "karma-testing-skill": "karma",
   "gauge-automation-skill": "gauge",
 };
 
+/** Cache-bust so updated SVGs (e.g. after re-normalization) load reliably */
+const ICON_VERSION = "2";
+
 export function getSkillIconUrl(skillPath: string): string | null {
   const slug = SKILL_ICON_SLUGS[skillPath];
   if (!slug) return null;
-  return `${SIMPLE_ICONS_CDN}/${slug}.svg`;
+  return `/skill-icons/${slug}.svg?v=${ICON_VERSION}`;
 }
 

@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { SkillCard } from "./SkillCard";
 import type { Skill } from "@/lib/types";
+import { categoryToSentenceCase } from "@/lib/skillsHelpers";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -60,7 +61,7 @@ export function SkillsList({ skills, categories, languages }: SkillsListProps) {
               <SelectItem value={ALL_OPTION_VALUE}>All categories</SelectItem>
               {categories.map((c) => (
                 <SelectItem key={c} value={c}>
-                  {c}
+                  {categoryToSentenceCase(c)}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -86,7 +87,7 @@ export function SkillsList({ skills, categories, languages }: SkillsListProps) {
       <p className="text-sm text-muted-foreground">
         {filtered.length} skill{filtered.length !== 1 ? "s" : ""}
       </p>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {filtered.map((skill) => (
           <SkillCard key={skill.path} skill={skill} />
         ))}

@@ -22,7 +22,7 @@ export function CopyableUrlBlock({ url, label }: CopyableUrlBlockProps) {
         <p className="text-sm font-medium text-muted-foreground">{label}</p>
       )}
       <div
-        className="flex cursor-pointer items-center justify-between gap-4 overflow-hidden rounded-md border border-input bg-muted/80 px-4 py-3 font-mono text-sm transition-colors"
+        className="flex cursor-pointer items-center justify-between gap-4 overflow-hidden rounded-lg border border-border bg-muted/60 px-4 py-3 font-mono text-sm shadow-sm transition-all duration-200 hover:shadow-md"
         onClick={copy}
       >
         <code className="min-w-0 flex-1 overflow-x-auto overflow-y-hidden whitespace-nowrap py-0.5 text-left text-muted-foreground">

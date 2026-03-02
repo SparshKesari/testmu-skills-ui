@@ -36,14 +36,16 @@ function AgentLogo({ id, name, url }: { id: string; name: string; url: string })
         decoding="sync"
         width={100}
         height={100}
-        className="h-14 w-auto object-contain sm:h-[72px] lg:h-[88px]"
+        className="h-14 w-auto object-contain mix-blend-lighten sm:h-[72px] lg:h-[88px]"
       />
     </a>
   );
 }
 
+const AGENTS_VISIBLE = AGENTS.filter((a) => a.id !== "vscode");
+
 export function AgentsMarquee() {
-  const duplicated = [...AGENTS, ...AGENTS];
+  const duplicated = [...AGENTS_VISIBLE, ...AGENTS_VISIBLE];
 
   return (
     <section className="w-full overflow-hidden py-0">

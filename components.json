@@ -19,5 +19,5 @@
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
-  "registries": {}
+  "registries": { "@billingsdk": "https://billingsdk.com/r/{name}.json" }
 }

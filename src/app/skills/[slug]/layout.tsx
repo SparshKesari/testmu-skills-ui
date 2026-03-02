@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import {
   getSkillBySlug,
   getAvailableDocTypes,
@@ -8,12 +9,40 @@ import {
   getSkillInstallCommand,
   isHotSkill,
 } from "@/lib/skills";
+import { categoryToSentenceCase } from "@/lib/skillsHelpers";
 import { SkillLogo } from "@/components/SkillLogo";
 import { SkillDocNav } from "@/components/SkillDocNav";
 import { CopyableUrlBlock } from "@/components/CopyableUrlBlock";
 import { type DocType } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const skill = await getSkillBySlug(slug);
+  if (!skill) return {};
+  const title = getSkillDisplayName(skill.path);
+  const description =
+    skill.description?.slice(0, 160) ||
+    `${title} — Install and use this agent skill for test automation. By TestMu AI.`;
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
+  };
+}
 
 export default async function SkillLayout({
   children,
@@ -60,16 +89,16 @@ export default async function SkillLayout({
           <div className="min-w-0 flex-1 flex flex-wrap items-center gap-2">
             <h1 className="text-2xl font-bold">{title}</h1>
             {isHotSkill(skill.path) && (
-              <Badge variant="secondary" className="bg-amber-500/20 text-amber-400 ring-1 ring-amber-500/40">
+              <Badge variant="secondary" className="bg-primary/15 text-primary ring-1 ring-primary/30">
                 Hot
               </Badge>
             )}
           </div>
         </div>
         <div className="mt-2 flex flex-wrap gap-2">
-          <Badge variant="secondary">{skill.category}</Badge>
+          <Badge variant="tag">{categoryToSentenceCase(skill.category)}</Badge>
           {skill.languages?.map((lang) => (
-            <Badge key={lang} variant="outline">
+            <Badge key={lang} variant="tag">
               {lang}
             </Badge>
           ))}

@@ -2,7 +2,7 @@
 
 import { getSkillIconUrl } from "@/lib/skillIcons";
 
-const LOGO_SIZE = 40;
+const LOGO_SIZE = 28;
 
 interface SkillLogoProps {
   skillPath: string;
@@ -29,6 +29,7 @@ function FallbackIcon({ className }: { className?: string }) {
   );
 }
 
+/** Renders skill logo from local public/skill-icons/ only (no CDN). */
 export function SkillLogo({ skillPath, className = "" }: SkillLogoProps) {
   const iconUrl = getSkillIconUrl(skillPath);
   const boxClass = `flex shrink-0 items-center justify-center rounded-none bg-white/5 text-white ${className}`.trim();
@@ -41,7 +42,8 @@ export function SkillLogo({ skillPath, className = "" }: SkillLogoProps) {
           alt=""
           width={LOGO_SIZE}
           height={LOGO_SIZE}
-          className="h-6 w-6 object-contain [filter:brightness(0)_invert(1)]"
+          className="size-5 object-contain [filter:brightness(0)_invert(1)]"
+          style={{ display: "block" }}
         />
       </div>
     );
@@ -49,7 +51,7 @@ export function SkillLogo({ skillPath, className = "" }: SkillLogoProps) {
 
   return (
     <div className={boxClass} style={{ width: LOGO_SIZE, height: LOGO_SIZE }}>
-      <FallbackIcon className="h-5 w-5" />
+      <FallbackIcon className="h-4 w-4" />
     </div>
   );
 }

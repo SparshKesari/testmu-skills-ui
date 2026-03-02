@@ -50,6 +50,13 @@ export function isHotSkill(skillPath: string): boolean {
   return HOT_SKILL_PATHS.includes(skillPath as (typeof HOT_SKILL_PATHS)[number]);
 }
 
+/** Category/label from kebab-case to sentence case: "e2e-testing" → "E2e testing" */
+export function categoryToSentenceCase(value: string): string {
+  if (!value) return value;
+  const withSpaces = value.replace(/-/g, " ");
+  return withSpaces.charAt(0).toUpperCase() + withSpaces.slice(1).toLowerCase();
+}
+
 /** URL slug for routes: e.g. selenium-automation-skill → selenium-skill */
 export function toSkillSlug(path: string): string {
   return path
