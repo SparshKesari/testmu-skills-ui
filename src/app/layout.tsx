@@ -42,7 +42,7 @@ export default function RootLayout({
         <div className="relative z-10 flex min-h-screen flex-col">
           <Header />
           <main className="flex-1 w-full pt-0 pb-16 md:pt-0 md:pb-20 lg:pt-0 lg:pb-24">
-            <div className="mx-auto w-full max-w-[1600px] px-4 md:px-8 lg:px-12">{children}</div>
+            <div className="mx-auto w-full max-w-[1600px] px-6 md:px-8 lg:px-12">{children}</div>
           </main>
           <footer className="w-full border-t border-border bg-muted/30 py-12 text-center text-sm text-muted-foreground">
             Made with ❤️ and ☕ by{" "}
