@@ -1,4 +1,16 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is a [Next.js](https://nextjs.org) project for **agentskillsforall.com** — the Agent Skills For All webpage and API.
+
+## API (agent-skills CLI)
+
+When deployed (e.g. to agentskillsforall.com), the following endpoints are used by the `agent-skills` CLI. Set `AGENT_SKILLS_API_URL` to your deployment URL (e.g. `https://agentskillsforall.com`).
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/search` | GET | Search skills. Query: `q`, `limit` (default 10, max 50). |
+| `/api/t` | GET | Telemetry ingestion (anonymous install/usage events). |
+| `/api/audit` | GET | Security audit (stub; returns `{}`). |
+
+Data is kept in memory per instance. For production at scale, replace `src/lib/store.ts` with Vercel Postgres or another store.
 
 ## Getting Started
 
