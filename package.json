@@ -10,7 +10,8 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
-    "seed-skills": "node scripts/seed-skills-from-github.mjs"
+    "seed-skills": "node scripts/seed-skills-from-github.mjs",
+    "test:api": "node scripts/test-api.mjs"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.19",
