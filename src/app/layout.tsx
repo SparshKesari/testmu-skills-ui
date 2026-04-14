@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Bebas_Neue } from "next/font/google";
 import { Header } from "@/components/Header";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import "./globals.css";
 
 const inter = Inter({
@@ -38,6 +39,7 @@ export default function RootLayout({
         className={`${inter.variable} ${bebasNeue.variable} font-sans min-h-screen antialiased overflow-x-hidden relative`}
         suppressHydrationWarning
       >
+        <GoogleAnalytics />
         <ScrollReveal />
         <div className="relative z-10 flex min-h-screen flex-col">
           <Header />
